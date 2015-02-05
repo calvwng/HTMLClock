@@ -49,4 +49,67 @@ function getTemp() {
 window.onload = function() {
    getTime();
    getTemp();
+
+   /* Set up options for "mins" select tag */
+   var hrSelect = $("#hours");
+   for (i = 1; i <= 12; i++) {
+      //var hr = (i < 10) ? ("0" + i) : i;
+      $("<option>" + i + "</option>").appendTo(hrSelect);
+   }
+
+   /* Set up options for "mins" select tag */
+   var minSelect = $("#mins");
+   for (i = 0; i < 10; i++) {
+      $("<option>0" + i + "</option>").appendTo(minSelect);
+   }
+   for (i = 10; i <= 59; i++) {
+      $("<option>" + i + "</option>").appendTo(minSelect);
+   }
 };
+
+/*--- Alarm functions ---*/
+
+function showAlarmPopup() {
+   $("#mask").removeClass("hide");
+   $("#popup").removeClass("hide");
+}
+
+function hideAlarmPopup() {
+   $("#mask").addClass("hide");
+   $("#popup").addClass("hide");
+}
+
+/**
+* Creates text for a saved alarm and appends it to the "alarms" div
+*/
+function insertAlarm(hours, mins, ampm, alarmName) {
+   var container = $("<div>");
+   container.addClass(".flexable");
+
+   var name = $("<div>");
+   name.addClass("name");
+   name.html(alarmName);
+   name.appendTo(container);
+
+   var time = $("<div>");
+   time.addClass("time");
+   var timeVal = hours + ":" + mins + " " + ampm;
+   time.html(timeVal);
+   time.appendTo(container);
+
+   container.appendTo("#alarms");
+   $("<br></br>").appendTo("#alarms");
+}
+
+/**
+* Adds an alarm with the selected hour, min, ampm, and name
+*/
+function addAlarm() {
+   var hours = $("#hours option:selected").text();
+   var mins = $("#mins option:selected").text();
+   var ampm = $("#ampm option:selected").text();
+   var alarmName = $("#alarmName").val();
+
+   insertAlarm(hours, mins, ampm, alarmName);
+   hideAlarmPopup();
+}

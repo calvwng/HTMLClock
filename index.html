@@ -4,17 +4,50 @@
       <meta charset=”UTF-8”>
       <title>CPE 409 Lab 2 by Calvin Wong</title>
       <link href="css/clock.css" rel="stylesheet" type="text/css">
+      <link href="css/alarm.css" rel="stylesheet" type="text/css">
    </head>
 
    <body>
       <h1>Calvin Wong's Clock</h1>
-      <h2>No Alarms Set</h2>
       <p id="dynamictime" class="clock">
          DYNAMIC TIME HERE
       </p>
       <div id="forecastLabel"> forecast label </div>
       <br></br>
       <img id="forecastIcon" src="" alt="forecastIcon">
+
+      <!-- Alarm content -->
+      <div id="alarmContainer">
+         <div id="alarmHeader" class="flexable">
+            <h2>Alarms</h2>
+            <input type="button" value="Add Alarm" onclick="showAlarmPopup()">
+         </div>
+         <div id="alarms"></div>
+      </div>
+
+      <div id="mask" class="hide"></div>
+      <div id="popup" class="hide">
+         <h1>Add Alarm<h1>
+         <div id="timeContainer">
+            <select id="hours">
+               <!-- This is populated with options via JS function "onload" -->
+            </select>
+            <select id="mins">
+               <!-- This is populated with options via JS function "onload" -->
+            </select>
+            <select id="ampm">
+               <option>am</option>
+               <option>pm</option>
+            </select>
+         </div>
+
+         <input type="text" id="alarmName" placeholder="Alarm Name"/>
+
+         <div class="flexable">
+            <input type="button" value="Cancel" class="button" onclick="hideAlarmPopup()"/>
+            <input type="button" value="Save Alarm" class="button" onclick="addAlarm()"/>
+         </div>
+      </div>
 
       <!-- Remote script for jQuery library -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript">
