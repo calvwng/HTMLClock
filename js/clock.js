@@ -32,6 +32,8 @@ function getTime() {
 }
 
 function getTemp() {
+   var def = $.Deferred(); // Create Deferred object before loading tasks
+
    /* AJAX request to forecast.io url */
    $.getJSON("https://api.forecast.io/forecast/c7a60cf9130a63d5272931b9ea476aac/35.300399,-120.662362?callback=?", 
    function(json) {
@@ -62,16 +64,26 @@ function getTemp() {
       }
       $("body").addClass(colorClass);
    });
+
+   setTimeout(function() { // After specified time, resolve func and move on
+      def.resolve();
+   }, 500);
+   return def; // vs return $.Deferred().resolve(), which is too fast for this
 }
 
 /* call getTime on page load */
 window.onload = function() {
    getTime();
-   getTemp();
+   getTemp().done(showHtml); // After getTemp's deferred obj resolves, show page
    getAllAlarms();
 
    initSelectTime();             // Initialize hr, min, ampm options
 };
+
+/* Show the HTML page (for after page elements are loaded) */
+function showHtml() {
+   $("html").removeClass("hide");
+}
 
 /*--- Alarm functions ---*/
 
