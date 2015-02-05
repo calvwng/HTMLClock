@@ -42,10 +42,10 @@ h2 {
 #alarms {
 	margin-top:20px;
 }
-.name {
+.floatLeft {
 	float: left;
 }
-.time {
+.floatRight {
 	float: right;
 }
 /********** The black transparent mask when adding an alarm clock *********/
@@ -84,4 +84,7 @@ h2 {
 	width:90%;
 	font-size:14px;
 	margin:10px auto 25px auto;
+}
+/*** Class for alarm times to listen for ***/
+.alarmTime {
 }
