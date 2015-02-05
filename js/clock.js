@@ -22,9 +22,9 @@ function getTime() {
    var shortTime = hour + ":" + minute + " " + timeOfDay;
    $(".alarmTime").each(function(index) {
       // For each alarm time, if time has been reached, alert and delete alarm
-      if (shortTime == $(this).html()) {
+      if (seconds == "00" && shortTime == $(this).html()) {
          alert("Alarm time reached: " + shortTime);
-         deleteAlarm(null, shortTime);
+         //deleteAlarm(null, shortTime);
       }
    });
 
