@@ -11,7 +11,7 @@
       <link href="css/alarm.css" rel="stylesheet" type="text/css">
    </head>
 
-   <body>
+   <body>        
       <h1>Calvin Wong's Clock</h1>
       <p id="dynamictime" class="clock"></p>
       <div id="forecastLabel"></div>
@@ -24,6 +24,15 @@
             <h2>Alarms</h2>
             <input type="button" value="Add Alarm" onclick="showAlarmPopup()">
          </div>
+
+         <!--
+           The FB Login button triggers the FB.login() function when clicked.
+         -->
+         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+         </fb:login-button>
+         <div id="status">
+         </div>             
+
          <div id="alarms"></div>
       </div>
 
