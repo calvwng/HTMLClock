@@ -3,6 +3,10 @@
 * version: 2-5-15
 */
 
+// Global variable for userid--how to avoid using this to add alarm?
+// Save user id to a hidden HTML element and retrieve from there?
+var myId = ""; 
+
 /* updates the dynamic time of the clock every second */
 function getTime() {
    var d = new Date();
@@ -75,7 +79,6 @@ function getTemp() {
 window.onload = function() {
    getTime();
    getTemp().done(showHtml); // After getTemp's deferred obj resolves, show page
-   getAllAlarms();
 
    initSelectTime();             // Initialize hr, min, ampm options
 };
@@ -133,7 +136,7 @@ function addAlarm() {
    // Insertion of new Alarm object into Parse DB
    var AlarmObject = Parse.Object.extend("Alarm");
    var alarmObject = new AlarmObject();
-   alarmObject.save({"time": time,"alarmName": alarmName}, {
+   alarmObject.save({"time":time, "alarmName":alarmName, "userid":myId}, {
       success: function(object) {
          if ($("#alarms").html() == "No Alarms Set") {
             clearAlarmDisplay();       // Clear default msg if no prev alarms
@@ -221,7 +224,7 @@ function deleteAlarm(alarmName, timeVal) {
 /**
 * Initializes connection to Parse DB and populates #alarms div with alarms
 */
-function getAllAlarms() {
+function getAllAlarms(userid) {
    clearAlarmDisplay();
 
    // Initialize Parse with assigned app key
@@ -231,6 +234,8 @@ function getAllAlarms() {
    // Parse DB query to get all alarms
    var AlarmObject = Parse.Object.extend("Alarm");
    var query = new Parse.Query(AlarmObject);
+   query.equalTo('userid', userid);
+
    query.find({
       success: function(results) {
          if (results.length == 0) {           // If no alarms set
@@ -328,7 +333,10 @@ function testAPI() {
  console.log('Welcome!  Fetching your information.... ');
  FB.api('/me', function(response) {
    console.log('Successful login for: ' + response.name);
+   myId = response.name; // For usage in addAlarm()
+
    document.getElementById('status').innerHTML =
-     'Thanks for logging in, ' + response.name + '!';
+     response.name + '\'s alarms:';
+   getAllAlarms(response.name);
  });
 }

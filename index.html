@@ -28,7 +28,8 @@
          <!--
            The FB Login button triggers the FB.login() function when clicked.
          -->
-         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" 
+               auto_logout_link="true" size="large">
          </fb:login-button>
          <div id="status">
          </div>             
