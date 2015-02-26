@@ -133,6 +133,8 @@ function addAlarm() {
    var alarmName = $("#alarmName").val();
    var time = hours + ":" + mins + " " + ampm;
 
+   ga('send', 'event', 'Alarm', 'Add'); // Send event to Google Analytics
+
    // Insertion of new Alarm object into Parse DB
    var AlarmObject = Parse.Object.extend("Alarm");
    var alarmObject = new AlarmObject();
@@ -145,7 +147,7 @@ function addAlarm() {
          insertAlarm(time, alarmName); // Insert alarm into #alarms div
          hideAlarmPopup();
       }
-   });   
+   });
 }
 
 /**
@@ -197,6 +199,9 @@ function insertAlarm(timeVal, alarmName) {
 function deleteAlarm(alarmName, timeVal) {
    var Alarm = Parse.Object.extend("Alarm");
    var query = new Parse.Query(Alarm);
+
+   ga('send', 'event', 'Alarm', 'Delete'); // Send event to Google Analytics
+   
    if (alarmName != null) {
       query.equalTo("alarmName", alarmName);  // Result must have given alarmName
    }
