@@ -7,6 +7,10 @@
 // Save user id to a hidden HTML element and retrieve from there?
 var myId = ""; 
 
+// Initialize Parse with assigned app key
+Parse.initialize("TLcCgRXGM1U5N0ACN5TQyEMkWjYPyKOIr176hRhD",
+  "kkkDh7A0oGdHHYXFDveRQwXbGp9VGaLI6kYbstoO");
+
 /* updates the dynamic time of the clock every second */
 function getTime() {
    var d = new Date();
@@ -201,7 +205,7 @@ function deleteAlarm(alarmName, timeVal) {
    var query = new Parse.Query(Alarm);
 
    ga('send', 'event', 'Alarm', 'Delete'); // Send event to Google Analytics
-   
+
    if (alarmName != null) {
       query.equalTo("alarmName", alarmName);  // Result must have given alarmName
    }
@@ -231,10 +235,6 @@ function deleteAlarm(alarmName, timeVal) {
 */
 function getAllAlarms(userid) {
    clearAlarmDisplay();
-
-   // Initialize Parse with assigned app key
-   Parse.initialize("TLcCgRXGM1U5N0ACN5TQyEMkWjYPyKOIr176hRhD",
-     "kkkDh7A0oGdHHYXFDveRQwXbGp9VGaLI6kYbstoO");
 
    // Parse DB query to get all alarms
    var AlarmObject = Parse.Object.extend("Alarm");
