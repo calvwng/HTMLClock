@@ -79,12 +79,34 @@ function getTemp() {
    return def; // vs return $.Deferred().resolve(), which is too fast for this
 }
 
+/* callback function for Lab 9, makes get request and passes header along */
+function callback() {
+    token = localStorage.getItem("token");
+    $.ajax({
+        url: 'https://api.imgur.com/3/account/me',
+        type: 'GET',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+        },
+        success: function(result) {
+            alert('So I heard you like Mudkip, ' + result.data.url);
+            console.log(result);
+        }
+    });
+}
+
 /* call getTime on page load */
 window.onload = function() {
    getTime();
    getTemp().done(showHtml); // After getTemp's deferred obj resolves, show page
 
    initSelectTime();             // Initialize hr, min, ampm options
+
+   // JSON Object to store data from
+   var jsonObj = {"client_id":"fbe2ec80131b55b", 
+                  "type":"token", 
+                  "callback_function":"callback" };
+   init(jsonObj);
 };
 
 /* Show the HTML page (for after page elements are loaded) */
