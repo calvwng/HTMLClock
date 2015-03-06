@@ -80,7 +80,7 @@ function getTemp() {
 }
 
 /* callback function for Lab 9, makes get request and passes header along */
-function callback() {
+var callback = function(){
     token = localStorage.getItem("token");
     $.ajax({
         url: 'https://api.imgur.com/3/account/me',
@@ -90,6 +90,7 @@ function callback() {
         },
         success: function(result) {
             alert('So I heard you like Mudkip, ' + result.data.url);
+            console.log('So I heard you like Mudkip');
             console.log(result);
         }
     });
